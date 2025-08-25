@@ -1,0 +1,61 @@
+{
+  "name": "git-extensions-vscode",
+  "displayName": "Git Extensions Bridge",
+  "description": "Call Git Extensions actions (File History, Diff, Blame) directly from VS Code",
+  "version": "0.0.2",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": ["SCM"],
+  "activationEvents": [
+    "onCommand:gitExtensions.fileHistory",
+    "onCommand:gitExtensions.diff",
+    "onCommand:gitExtensions.blame"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitExtensions.fileHistory",
+        "title": "Git Extensions: File History"
+      },
+      {
+        "command": "gitExtensions.diff",
+        "title": "Git Extensions: Diff"
+      },
+      {
+        "command": "gitExtensions.blame",
+        "title": "Git Extensions: Blame"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        { "command": "gitExtensions.fileHistory", "when": "resourceLangId != ''" },
+        { "command": "gitExtensions.diff", "when": "resourceLangId != ''" },
+        { "command": "gitExtensions.blame", "when": "resourceLangId != ''" }
+      ],
+      "editor/context": [
+        { "command": "gitExtensions.fileHistory" },
+        { "command": "gitExtensions.diff" },
+        { "command": "gitExtensions.blame" }
+      ],
+      "editor/title/context": [
+        { "command": "gitExtensions.fileHistory", "when": "resourceLangId != ''" },
+        { "command": "gitExtensions.diff", "when": "resourceLangId != ''" },
+        { "command": "gitExtensions.blame", "when": "resourceLangId != ''" }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0",
+    "vscode": "^1.1.37"
+  }
+}

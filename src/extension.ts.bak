@@ -1,0 +1,40 @@
+import * as vscode from 'vscode';
+import { exec } from 'child_process';
+
+function runGitEx(command: string, filePath: string) {
+  exec(`gitex.cmd ${command} "${filePath}"`, (err) => {
+    if (err) {
+      vscode.window.showErrorMessage(`Failed to launch Git Extensions: ${err.message}`);
+    }
+  });
+}
+
+export function activate(context: vscode.ExtensionContext) {
+  const fileHistory = vscode.commands.registerCommand('gitExtensions.fileHistory', (uri: vscode.Uri) => {
+    if (!uri) {
+      vscode.window.showErrorMessage("No file selected.");
+      return;
+    }
+    runGitEx("filehistory", uri.fsPath);
+  });
+
+  const diff = vscode.commands.registerCommand('gitExtensions.diff', (uri: vscode.Uri) => {
+    if (!uri) {
+      vscode.window.showErrorMessage("No file selected.");
+      return;
+    }
+    runGitEx("diff", uri.fsPath);
+  });
+
+  const blame = vscode.commands.registerCommand('gitExtensions.blame', (uri: vscode.Uri) => {
+    if (!uri) {
+      vscode.window.showErrorMessage("No file selected.");
+      return;
+    }
+    runGitEx("blame", uri.fsPath);
+  });
+
+  context.subscriptions.push(fileHistory, diff, blame);
+}
+
+export function deactivate() {}

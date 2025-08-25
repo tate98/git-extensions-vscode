@@ -1,0 +1,55 @@
+{
+  "name": "git-extensions-vscode",
+  "displayName": "Git Extensions Bridge",
+  "description": "Call Git Extensions actions (like File History) directly from VS Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.101.2"
+  },
+  "categories": [
+    "SCM"
+  ],
+  "activationEvents": [
+    "onCommand:gitExtensions.fileHistory"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitExtensions.fileHistory",
+        "title": "Git Extensions: File History"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "gitExtensions.fileHistory",
+          "when": "resourceLangId != ''"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "gitExtensions.fileHistory"
+        }
+      ],
+	  "editor/title/context": [
+		{
+		  "command": "gitExtensions.fileHistory",
+		  "when": "resourceLangId != ''"
+		}
+	  ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0",
+    "vscode": "^1.1.37"
+  }
+}
