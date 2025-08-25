@@ -22,3 +22,6 @@ Thumbs.db
 
 # VS Code extension packaging artifacts
 *.vsix
+
+# Backups
+*.bak
